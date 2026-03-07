@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard - StudentSys</title>
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', path='styles/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='styles/teacher_dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='styles/teacher_dashboard.css') }}">
+    <style>
+        body {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        html.loaded body {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Background -->
+    <div class="main" style="position: fixed; z-index: -1;"></div>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-chalkboard-user"></i>
+                <span>TeacherHub</span>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="/teacher/dashboard" class="active"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+                <li><a href="/teacher/students"><i class="fa-solid fa-users"></i> Students</a></li>
+                <li><a href="/teacher/classes"><i class="fa-solid fa-book-open"></i> Classes</a></li>
+                <li><a href="#"><i class="fa-solid fa-file-pen"></i> Homework</a></li>
+                <li><a href="#"><i class="fa-solid fa-chart-line"></i> Report Cards</a></li>
+                <li><a href="#"><i class="fa-solid fa-calendar-alt"></i> Timetable</a></li>
+            </ul>
+
+            <a href="/logout" class="logout-btn">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+        </nav>
+
+        <!-- Main Content -->
+        <section class="main-content">
+            <header>
+                <div class="header-left" style="display: flex; align-items: center; gap: 20px;">
+                    <button id="sidebar-toggle" class="menu-toggle">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div class="search-bar">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Search for students, classes...">
+                        <div id="searchResults" class="search-results-dropdown hidden"></div>
+                    </div>
+                </div>
+
+                <div class="user-profile">
+                    <button class="notification-btn">
+                        <i class="fa-solid fa-bell"></i>
+                        <span class="notification-badge"></span>
+                    </button>
+
+                    <div class="profile-section">
+                        <div class="user-info">
+                            <span>{{ teacher.full_name }}</span>
+                            <small>{{ teacher.department }}</small>
+                        </div>
+                        <div class="user-avatar">
+                            {{ teacher.initials }}
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <div class="welcome-banner">
+                    <div class="banner-content">
+                        <h1>Good Morning, Teacher!</h1>
+                        <p>You have classes with Grade 9 & 10 today and 12 homework submissions to review.</p>
+                    </div>
+                    <a href="#" class="add-class-btn">
+                        <i class="fa-solid fa-plus"></i> Create Class
+                    </a>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #6c5ce7, #a29bfe);">
+                            <i class="fa-solid fa-user-graduate"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>{{ stats.total_students }}</h3>
+                            <p>Total Students</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #00b894, #55efc4);">
+                            <i class="fa-solid fa-chalkboard"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>{{ stats.active_classes }}</h3>
+                            <p>Active Classes</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #ff7675, #fab1a0);">
+                            <i class="fa-solid fa-clipboard-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>{{ stats.pending_review }}</h3>
+                            <p>Pending Review</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #fdcb6e, #ffeaa7);">
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>{{ stats.rating }}</h3>
+                            <p>Average Rating</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upcoming Classes -->
+                <div class="section-header">
+                    <h2>Upcoming Classes</h2>
+                    <a href="/teacher/classes" class="view-all">View All</a>
+                </div>
+
+                <div class="classes-grid">
+                    {% if upcoming_classes %}
+                    {% for class in upcoming_classes %}
+                    <div class="class-card">
+                        <div class="class-header variant-{{ loop.index0 % 6 + 1 }}">
+                            <span class="class-badge">{{ class.batch_name }}</span>
+                        </div>
+                        <div class="class-body">
+                            <h3 class="class-title">{{ class.subject }}</h3>
+                            <div class="class-meta">
+                                <span><i class="fa-solid fa-clock"></i> {{ class.time }}</span>
+                                <span><i class="fa-solid fa-user-group"></i> {{ class.student_count }} Students</span>
+                            </div>
+                            <div class="class-actions">
+                                <a href="/teacher/classes/details?batch_id={{ class.batch_id }}"
+                                    class="action-btn primary">Start Class</a>
+                                <a href="/teacher/classes/details?batch_id={{ class.batch_id }}"
+                                    class="action-btn">Attendance</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <div class="class-card" style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
+                        <p style="color: grey;">No upcoming classes for today.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="{{ url_for('static', path='js/dashboard.js') }}"></script>
+</body>
+
+</html>

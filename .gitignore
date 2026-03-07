@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+.env
+.python-version
+uv.lock
+.tldr
+
+# Databases
+*.db
+*.sqlite3
+
+# Project specific
+project2/app/.env
+project2/test.db
+project2/app/__pycache__/
+project2/app/models/__pycache__/
+project2/app/routers/__pycache__/
+project2/app/services/__pycache__/
+project2/app/utils/__pycache__/
+project2/app/core/__pycache__/
+project2/app/database/__pycache__/
+project2/app/schemas/__pycache__/
+
+# OS files
+.DS_Store
+Thumbs.db
+.vscode/
+

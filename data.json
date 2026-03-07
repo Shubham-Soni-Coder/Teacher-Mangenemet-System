@@ -1,0 +1,691 @@
+{
+    "students": [
+        {
+            "roll_no": "101",
+            "name": "Rahul",
+            "father_name": "Suresh Kumar",
+            "mother_name": "Anita Devi",
+            "gmail": "Rahul01@gmail.com",
+            "password": "Rahul@09082006",
+            "is_active": true
+        },
+        {
+            "roll_no": "102",
+            "name": "Neha",
+            "father_name": "Rajesh Sharma",
+            "mother_name": "Sunita Sharma",
+            "gmail": "Neha02@gmail.com",
+            "password": "Neha@09082006",
+            "is_active": true
+        },
+        {
+            "roll_no": "103",
+            "name": "Amit",
+            "father_name": "Vijay Singh",
+            "mother_name": "Meena Singh",
+            "gmail": "Amit03@gmail.com",
+            "password": "Amit@09082006",
+            "is_active": true
+        },
+        {
+            "roll_no": "104",
+            "name": "Pooja",
+            "father_name": "Mahesh Verma",
+            "mother_name": "Kiran Verma",
+            "gmail": "Pooja04@gmail.com",
+            "password": "Pooja@09082006",
+            "is_active": true
+        },
+        {
+            "roll_no": "105",
+            "name": "Ravi",
+            "father_name": "Prakash Yadav",
+            "mother_name": "Seema Yadav",
+            "gmail": "Ravi05@gmail.com",
+            "password": "Ravi@09082006",
+            "is_active": true
+        },
+        {
+            "roll_no": "106",
+            "name": "Sneha",
+            "father_name": "Arun Mehta",
+            "mother_name": "Rekha Mehta",
+            "gmail": "Sneha06@gmail.com",
+            "password": "Sneha@09082006",
+            "is_active": true
+        },
+        {
+            "roll_no": "107",
+            "name": "Karan",
+            "father_name": "Devendra Joshi",
+            "mother_name": "Shalini Joshi",
+            "gmail": "Karan07@gmail.com",
+            "password": "Karan@09082006",
+            "is_active": true
+        },
+        {
+            "roll_no": "108",
+            "name": "Priya",
+            "father_name": "Manoj Gupta",
+            "mother_name": "Anjali Gupta",
+            "gmail": "Priya08@gmail.com",
+            "password": "Priya@09082006",
+            "is_active": true
+        },
+        {
+            "roll_no": "109",
+            "name": "Vikas",
+            "father_name": "Sanjay Kumar",
+            "mother_name": "Kusum Kumar",
+            "gmail": "Vikas09@gmail.com",
+            "password": "Vikas@09082006",
+            "is_active": true
+        },
+        {
+            "roll_no": "110",
+            "name": "Anjali",
+            "father_name": "Ramesh Patel",
+            "mother_name": "Geeta Patel",
+            "gmail": "Anjali10@gmail.com",
+            "password": "Anjali@09082006",
+            "is_active": true
+        },
+        {
+            "roll_no": "111",
+            "name": "Deepak",
+            "father_name": "Harish Malhotra",
+            "mother_name": "Suman Malhotra",
+            "gmail": "Deepak11@gmail.com",
+            "password": "Deepak@09082006",
+            "is_active": true
+        },
+        {
+            "roll_no": "112",
+            "name": "Meena",
+            "father_name": "Satish Bansal",
+            "mother_name": "Kamla Bansal",
+            "gmail": "Meena12@gmail.com",
+            "password": "Meena@09082006",
+            "is_active": true
+        },
+        {
+            "roll_no": "113",
+            "name": "Arjun",
+            "father_name": "Naresh Chauhan",
+            "mother_name": "Poonam Chauhan",
+            "gmail": "Arjun13@gmail.com",
+            "password": "Arjun@09082006",
+            "is_active": true
+        },
+        {
+            "roll_no": "114",
+            "name": "Komal",
+            "father_name": "Ashok Rathi",
+            "mother_name": "Seema Rathi",
+            "gmail": "Komal14@gmail.com",
+            "password": "Komal@09082006",
+            "is_active": true
+        },
+        {
+            "roll_no": "115",
+            "name": "Sahil",
+            "father_name": "Ravi Kapoor",
+            "mother_name": "Neelam Kapoor",
+            "gmail": "Sahil15@gmail.com",
+            "password": "Sahil@09082006",
+            "is_active": true
+        },
+        {
+            "roll_no": "116",
+            "name": "Divya",
+            "father_name": "Ajay Soni",
+            "mother_name": "Shobha Soni",
+            "gmail": "Divya16@gmail.com",
+            "password": "Divya@09082006",
+            "is_active": true
+        },
+        {
+            "roll_no": "117",
+            "name": "Nikhil",
+            "father_name": "Vinod Sharma",
+            "mother_name": "Alka Sharma",
+            "gmail": "Nikhil17@gmail.com",
+            "password": "Nikhil@09082006",
+            "is_active": true
+        },
+        {
+            "roll_no": "118",
+            "name": "Ritu",
+            "father_name": "Mukesh Jain",
+            "mother_name": "Savita Jain",
+            "gmail": "Ritu18@gmail.com",
+            "password": "Ritu@09082006",
+            "is_active": true
+        },
+        {
+            "roll_no": "119",
+            "name": "Suresh",
+            "father_name": "Om Prakash",
+            "mother_name": "Radha Prakash",
+            "gmail": "Suresh19@gmail.com",
+            "password": "Suresh@09082006",
+            "is_active": true
+        },
+        {
+            "roll_no": "120",
+            "name": "Alka",
+            "father_name": "Bhupendra Singh",
+            "mother_name": "Sarita Singh",
+            "gmail": "Alka20@gmail.com",
+            "password": "Alka@09082006",
+            "is_active": true
+        },
+        {
+            "roll_no": "121",
+            "name": "Amit Sharma",
+            "father_name": "Rajesh Sharma",
+            "mother_name": "Sunita Sharma",
+            "gmail": "Amit21@gmail.com",
+            "password": "Amit@09082006",
+            "is_active": true
+        },
+        {
+            "roll_no": "122",
+            "name": "Priya Verma",
+            "father_name": "Suresh Verma",
+            "mother_name": "Meena Verma",
+            "gmail": "Priya22@gmail.com",
+            "password": "Priya@09082006",
+            "is_active": true
+        },
+        {
+            "roll_no": "123",
+            "name": "Rohit Singh",
+            "father_name": "Mahesh Singh",
+            "mother_name": "Anita Singh",
+            "gmail": "Rohit23@gmail.com",
+            "password": "Rohit@09082006",
+            "is_active": true
+        },
+        {
+            "roll_no": "124",
+            "name": "Sneha Gupta",
+            "father_name": "Vijay Gupta",
+            "mother_name": "Kavita Gupta",
+            "gmail": "Sneha24@gmail.com",
+            "password": "Sneha@09082006",
+            "is_active": true
+        },
+        {
+            "roll_no": "125",
+            "name": "Arjun Mehta",
+            "father_name": "Rakesh Mehta",
+            "mother_name": "Pooja Mehta",
+            "gmail": "Arjun25@gmail.com",
+            "password": "Arjun@09082006",
+            "is_active": true
+        },
+        {
+            "roll_no": "126",
+            "name": "Shubham",
+            "father_name": "Naveen",
+            "mother_name": "Archna",
+            "gmail": "slsitu1424@gmail.com",
+            "password": "Situ@09082006",
+            "is_active": true
+        }
+    ],
+    "fees_by_class": {
+        "1": [
+            {
+                "component_name": "Admission Fee",
+                "amount": 3000
+            },
+            {
+                "component_name": "Tuition Fee",
+                "amount": 12000
+            },
+            {
+                "component_name": "Exam Fee",
+                "amount": 500
+            }
+        ],
+        "2": [
+            {
+                "component_name": "Admission Fee",
+                "amount": 3200
+            },
+            {
+                "component_name": "Tuition Fee",
+                "amount": 13000
+            },
+            {
+                "component_name": "Library Fee",
+                "amount": 600
+            }
+        ],
+        "3": [
+            {
+                "component_name": "Admission Fee",
+                "amount": 3500
+            },
+            {
+                "component_name": "Tuition Fee",
+                "amount": 14000
+            },
+            {
+                "component_name": "Computer Fee",
+                "amount": 1000
+            }
+        ],
+        "4": [
+            {
+                "component_name": "Admission Fee",
+                "amount": 3800
+            },
+            {
+                "component_name": "Tuition Fee",
+                "amount": 15000
+            },
+            {
+                "component_name": "Sports Fee",
+                "amount": 700
+            }
+        ],
+        "5": [
+            {
+                "component_name": "Admission Fee",
+                "amount": 4000
+            },
+            {
+                "component_name": "Tuition Fee",
+                "amount": 16000
+            },
+            {
+                "component_name": "Lab Fee",
+                "amount": 1200
+            }
+        ],
+        "6": [
+            {
+                "component_name": "Admission Fee",
+                "amount": 4500
+            },
+            {
+                "component_name": "Tuition Fee",
+                "amount": 18000
+            },
+            {
+                "component_name": "Science Lab Fee",
+                "amount": 1500
+            }
+        ],
+        "7": [
+            {
+                "component_name": "Admission Fee",
+                "amount": 4800
+            },
+            {
+                "component_name": "Tuition Fee",
+                "amount": 20000
+            },
+            {
+                "component_name": "Computer Lab Fee",
+                "amount": 2000
+            }
+        ],
+        "8": [
+            {
+                "component_name": "Admission Fee",
+                "amount": 5000
+            },
+            {
+                "component_name": "Tuition Fee",
+                "amount": 22000
+            },
+            {
+                "component_name": "Exam Fee",
+                "amount": 800
+            }
+        ],
+        "9": [
+            {
+                "component_name": "Admission Fee",
+                "amount": 5500
+            },
+            {
+                "component_name": "Tuition Fee",
+                "amount": 25000
+            },
+            {
+                "component_name": "Practical Fee",
+                "amount": 1500
+            }
+        ],
+        "10": [
+            {
+                "component_name": "Admission Fee",
+                "amount": 6000
+            },
+            {
+                "component_name": "Tuition Fee",
+                "amount": 30000
+            },
+            {
+                "component_name": "Board Exam Fee",
+                "amount": 2500
+            }
+        ],
+        "11_science": [
+            {
+                "component_name": "Admission Fee",
+                "amount": 8000
+            },
+            {
+                "component_name": "Tuition Fee",
+                "amount": 45000
+            },
+            {
+                "component_name": "Physics Lab Fee",
+                "amount": 4000
+            },
+            {
+                "component_name": "Chemistry Lab Fee",
+                "amount": 4000
+            }
+        ],
+        "11_commerce": [
+            {
+                "component_name": "Admission Fee",
+                "amount": 7000
+            },
+            {
+                "component_name": "Tuition Fee",
+                "amount": 35000
+            },
+            {
+                "component_name": "Accounts Practical Fee",
+                "amount": 2000
+            }
+        ],
+        "11_arts": [
+            {
+                "component_name": "Admission Fee",
+                "amount": 6000
+            },
+            {
+                "component_name": "Tuition Fee",
+                "amount": 28000
+            }
+        ],
+        "12_science": [
+            {
+                "component_name": "Admission Fee",
+                "amount": 8500
+            },
+            {
+                "component_name": "Tuition Fee",
+                "amount": 48000
+            },
+            {
+                "component_name": "Board Practical Fee",
+                "amount": 5000
+            }
+        ],
+        "12_commerce": [
+            {
+                "component_name": "Admission Fee",
+                "amount": 7500
+            },
+            {
+                "component_name": "Tuition Fee",
+                "amount": 38000
+            },
+            {
+                "component_name": "Board Exam Fee",
+                "amount": 3000
+            }
+        ],
+        "12_arts": [
+            {
+                "component_name": "Admission Fee",
+                "amount": 6500
+            },
+            {
+                "component_name": "Tuition Fee",
+                "amount": 30000
+            }
+        ]
+    },
+    "Subjects": {
+        "Common": [
+            "English",
+            "Hindi",
+            "Mathematics",
+            "Science",
+            "Social Science",
+            "IT",
+            "Physical Education"
+        ],
+        "Optional": [
+            "General Knowledge",
+            "Sanskrit",
+            "Fine Arts",
+            "Music",
+            "Dance",
+            "Home Science",
+            "Computer Science",
+            "Artificial Intelligence",
+            "Entrepreneurship",
+            "Legal Studies",
+            "Design"
+        ],
+        "Streams": {
+            "Science": {
+                "Medical": [
+                    "Physics",
+                    "Chemistry",
+                    "Biology",
+                    "Psychology"
+                ],
+                "Non-Medical": [
+                    "Physics",
+                    "Chemistry",
+                    "Mathematics"
+                ],
+                "Optional": [
+                    "Computer Science",
+                    "Philosophy",
+                    "Fine Arts",
+                    "Physical Education",
+                    "Artificial Intelligence"
+                ]
+            },
+            "Commerce": {
+                "Core": [
+                    "Accountancy",
+                    "Business Studies",
+                    "Economics",
+                    "Mathematics"
+                ],
+                "Optional": [
+                    "Computer Science",
+                    "Entrepreneurship",
+                    "Legal Studies",
+                    "Physical Education"
+                ]
+            },
+            "Humanities": {
+                "Core": [
+                    "History",
+                    "Political Science",
+                    "Geography",
+                    "Sociology",
+                    "Psychology",
+                    "Economics",
+                    "Philosophy"
+                ],
+                "Optional": [
+                    "Legal Studies",
+                    "Entrepreneurship",
+                    "Computer Science",
+                    "Physical Education"
+                ]
+            }
+        }
+    },
+    "teacher": [
+        {
+            "gmail": "sonishubham2888@gmail.com",
+            "password": "Shubham@09082006",
+            "is_active": true,
+            "name": "Shubham",
+            "department_name": "Mathematics"
+        },
+        {
+            "gmail": "Himanshi@gmail.com",
+            "password": "Himanshi@09082006",
+            "is_active": true,
+            "name": "Himanshi",
+            "department_name": "Mathematics"
+        },
+        {
+            "gmail": "Himanshu@gmail.com",
+            "password": "Himanshu@09082006",
+            "is_active": true,
+            "name": "Himanshu",
+            "department_name": "Physics"
+        },
+        {
+            "gmail": "Anjali@gmail.com",
+            "password": "Anjali@09082006",
+            "is_active": true,
+            "name": "Anjali",
+            "department_name": "Chemistry"
+        },
+        {
+            "gmail": "Ankit@gmail.com",
+            "password": "Ankit@09082006",
+            "is_active": true,
+            "name": "Ankit",
+            "department_name": "Biology"
+        },
+        {
+            "gmail": "Karan@gmail.com",
+            "password": "Karan@09082006",
+            "is_active": true,
+            "name": "Karan",
+            "department_name": "English"
+        },
+        {
+            "gmail": "Shubham@gmail.com",
+            "password": "Shubham@09082006",
+            "is_active": true,
+            "name": "Shubham",
+            "department_name": "Computer Science"
+        },
+        {
+            "gmail": "Situ@gmail.com",
+            "password": "Situ@09082006",
+            "is_active": true,
+            "name": "Situ",
+            "department_name": "History"
+        },
+        {
+            "gmail": "Sachin@gmail.com",
+            "password": "Sachin@09082006",
+            "is_active": true,
+            "name": "Sachin",
+            "department_name": "Geography"
+        },
+        {
+            "gmail": "Saurabh@gmail.com",
+            "password": "Saurabh@09082006",
+            "is_active": true,
+            "name": "Saurabh",
+            "department_name": "Economics"
+        },
+        {
+            "gmail": "Siddhant@gmail.com",
+            "password": "Siddhant@09082006",
+            "is_active": true,
+            "name": "Siddhant",
+            "department_name": "Physical Education"
+        },
+        {
+            "gmail": "Naveen@gmail.com",
+            "password": "Naveen@09082006",
+            "is_active": true,
+            "name": "Naveen",
+            "department_name": "Hindi"
+        }
+    ],
+    "class_schedules": [
+        {
+            "name": "Grade 10",
+            "subject": "Mathematics",
+            "batch_id": 10,
+            "teacher_id": 1,
+            "day_of_week": 1,
+            "start_time": "08:30 AM",
+            "end_time": "10:00 AM"
+        },
+        {
+            "name": "Grade 11-B",
+            "subject": "Mathematics",
+            "batch_id": 11,
+            "teacher_id": 1,
+            "day_of_week": 1,
+            "start_time": "10:15 AM",
+            "end_time": "11:45 AM"
+        },
+        {
+            "name": "Grade 9",
+            "subject": "Mathematics",
+            "batch_id": 9,
+            "teacher_id": 1,
+            "day_of_week": 1,
+            "start_time": "12:00 PM",
+            "end_time": "01:30 PM"
+        },
+        {
+            "name": "Grade 12-A",
+            "subject": "Mathematics",
+            "batch_id": 12,
+            "teacher_id": 1,
+            "day_of_week": 1,
+            "start_time": "01:45 PM",
+            "end_time": "03:15 PM"
+        },
+        {
+            "name": "Grade 11-A",
+            "subject": "Mathematics",
+            "batch_id": 1,
+            "teacher_id": 1,
+            "day_of_week": 1,
+            "start_time": "03:30 PM",
+            "end_time": "05:00 PM"
+        },
+        {
+            "name": "Grade 12-B",
+            "subject": "Physics",
+            "batch_id": 12,
+            "teacher_id": 2,
+            "day_of_week": 1,
+            "start_time": "09:00 AM",
+            "end_time": "10:30 AM"
+        }
+    ],
+    "class_instances": [
+        {
+            "schedule_id": 1,
+            "class_date": "2026-02-03",
+            "status": "held"
+        },
+        {
+            "schedule_id": 2,
+            "class_date": "2026-02-05",
+            "status": "scheduled"
+        }
+    ]
+}

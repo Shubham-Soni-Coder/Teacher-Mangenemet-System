@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student List - TeacherHub</title>
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', path='styles/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='styles/teacher_dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='styles/teacher_students.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='styles/teacher_students.css') }}">
+    <style>
+        body {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        html.loaded body {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Background -->
+    <div class="main" style="position: fixed; z-index: -1;"></div>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-chalkboard-user"></i>
+                <span>TeacherHub</span>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="/teacher/dashboard"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+                <li><a href="#" class="active"><i class="fa-solid fa-users"></i> Students</a></li>
+                <li><a href="/teacher/classes"><i class="fa-solid fa-book-open"></i> Classes</a></li>
+                <li><a href="#"><i class="fa-solid fa-file-pen"></i> Homework</a></li>
+                <li><a href="#"><i class="fa-solid fa-chart-line"></i> Report Cards</a></li>
+                <li><a href="#"><i class="fa-solid fa-calendar-alt"></i> Timetable</a></li>
+            </ul>
+
+            <a href="/logout" class="logout-btn">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+        </nav>
+
+        <!-- Main Content -->
+        <section class="main-content">
+            <header>
+                <div class="header-left" style="display: flex; align-items: center; gap: 20px;">
+                    <button id="sidebar-toggle" class="menu-toggle">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div class="search-bar">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Search by name or roll no...">
+                    </div>
+                </div>
+
+                <div class="user-profile">
+                    <button class="notification-btn">
+                        <i class="fa-solid fa-bell"></i>
+                        <span class="notification-badge"></span>
+                    </button>
+
+                    <div class="profile-section">
+                        <div class="user-info">
+                            <span>{{ teacher.full_name }}</span>
+                            <small>{{ teacher.department }}</small>
+                        </div>
+                        <div class="user-avatar">
+                            {{ teacher.initials }}
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <div class="section-header">
+                    <h2>Student Overview</h2>
+                    <div class="batch-selector-container">
+                        <select id="batchSelect" class="glass-select"
+                            onchange="window.location.href='/teacher/students?batch_id=' + this.value">
+                            {% for b in batches %}
+                            <option value="{{ b.id }}" {% if b.id==current_batch_id %}selected{% endif %}>{{ b.name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Month Selector -->
+                <div class="month-selector">
+                    <div class="month-item">January</div>
+                    <div class="month-item">February</div>
+                    <div class="month-item active">March</div>
+                    <div class="month-item">April</div>
+                    <div class="month-item">May</div>
+                    <div class="month-item">June</div>
+                    <div class="month-item">July</div>
+                    <div class="month-item">August</div>
+                    <div class="month-item">September</div>
+                    <div class="month-item">October</div>
+                    <div class="month-item">November</div>
+                    <div class="month-item">December</div>
+                </div>
+
+                <!-- Student Table -->
+                <div class="table-container">
+                    <table class="student-table">
+                        <thead>
+                            <tr>
+                                <th>Roll No</th>
+                                <th>Student Name</th>
+                                <th>Fees Status</th>
+                                <th class="Attendance">Attendance ({{ current_month_name }})</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="student-table-body">
+                            {% for student in students %}
+                            <tr id="student-row-{{ student.serial_no }}">
+                                <td>#{{ student.serial_no }}</td>
+                                <td>
+                                    <div class="table-user-info">
+                                        <div class="table-avatar">{{ student.initials }}</div>
+                                        <div>
+                                            <span style="font-weight: 600; display: block;">{{ student.name }}</span>
+                                            <span style="font-size: 0.8rem; color: var(--text-muted);">{{
+                                                student.father_name
+                                                }}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    {% if student.fees_paid %}
+                                    <span class="status-badge paid">Paid</span>
+                                    {% else %}
+                                    <span class="status-badge pending">Pending</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div class="progress-wrapper">
+                                        <div class="progress-bar-bg">
+                                            <div class="progress-bar-fill" data-width="{{ student.attendance }}%">
+                                            </div>
+                                        </div>
+                                        <div class="progress-text">{{ student.days_present }}/{{ student.total_days }}
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button class="table-action-btn view-btn" title="View Profile"
+                                        data-name="{{ student.name }}" data-roll="{{ student.serial_no }}"
+                                        data-father-name="{{ student.father_name }}"
+                                        data-attendance="{{ student.attendance }}"
+                                        data-initials="{{ student.initials }}">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </section>
+    </div>
+    <!-- View Student Modal -->
+    <div id="viewModal" class="modal">
+        <div class="modal-content glass-effect">
+            <span class="close-btn" onclick="closeModal('viewModal')">&times;</span>
+            <div class="modal-header">
+                <div class="modal-avatar" id="viewAvatar">AJ</div>
+                <h2 id="viewName">Student Name</h2>
+                <div id="viewRoll" class="modal-subtitle">Roll No: #101</div>
+            </div>
+            <div class="modal-body">
+                <div class="info-row">
+                    <span class="label"><i class="fa-solid fa-user-group"></i> Father Name:</span>
+                    <span class="value" id="viewFatherName">Parent Name</span>
+                </div>
+                <div class="info-row">
+                    <span class="label"><i class="fa-solid fa-chart-pie"></i> Attendance:</span>
+                    <span class="value" id="viewAttendance">90%</span>
+                </div>
+                <div class="info-row">
+                    <span class="label"><i class="fa-solid fa-graduation-cap"></i> Grade:</span>
+                    <span class="value">10-A</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script src="{{ url_for('static', path='js/dashboard.js') }}"></script>
+    <script src="{{ url_for('static', path='js/teacher_students.js') }}"></script>
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+imagekitio
+aiosqlite
+sqlmodel
+pydantic
+itsdangerous
+jinja2
+python-multipart
+passlib
+argon2-cffi
+tzdata
+psycopg2-binary
+sqlalchemy

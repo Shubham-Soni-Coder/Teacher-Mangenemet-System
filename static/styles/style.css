@@ -1,0 +1,212 @@
+:root {
+  /* Glassmorphism Variables */
+  --glass-bg: rgba(0, 0, 0, 0.3);
+  /* Darker glass for better contrast */
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+  /* Colors */
+  --text-color: #ffffff;
+  --input-bg: rgba(255, 255, 255, 0.05);
+  --input-focus-border: rgba(255, 255, 255, 0.5);
+
+  /* Gradient for Button */
+  --btn-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  /* overflow: hidden; Removed to allow scrolling on mobile */
+  /* Prevent scrolling if not needed */
+}
+
+.main {
+  /* Dark overlay to make text pop */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../images/login_image.webp");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.boxes {
+  /* Glassmorphism Effect */
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  /* Highlight top border */
+  border-radius: 20px;
+  box-shadow: var(--glass-shadow);
+
+  padding: 50px 40px;
+  width: 90%;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--text-color);
+}
+
+h1 {
+  margin: 0 0 35px 0;
+  font-weight: 600;
+  font-size: 2.2rem;
+  text-align: center;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  font-weight: 400;
+  margin-left: 5px;
+  opacity: 0.9;
+}
+
+input {
+  background: var(--input-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 24px;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  backdrop-filter: blur(5px);
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+input:focus {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--input-focus-border);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  transform: scale(1.02);
+  /* Subtle zoom */
+}
+
+button {
+  background: var(--btn-gradient);
+  border: none;
+  border-radius: 12px;
+  padding: 16px;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  filter: brightness(1.1);
+}
+
+button:active {
+  transform: translateY(-1px);
+}
+
+.signup-text {
+  font-size: 0.85rem;
+  margin: -10px 0 20px 0;
+  /* negative top margin to pull it up closer to inputs */
+  text-align: right;
+  width: 100%;
+}
+
+.signup-text a {
+  color: #bfa3ff;
+  /* Light purple to match gradient */
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.signup-text a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .boxes {
+    width: 95%;
+    padding: 30px 20px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+}
+
+.error-message {
+  color: #ff6b6b;
+  /* Soft red */
+  background: rgba(255, 0, 0, 0.1);
+  border: 1px solid #ff6b6b;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+/* Sidebar Overlay */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 90;
+  /* Below sidebar (100) */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  backdrop-filter: blur(2px);
+}
+
+.sidebar-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* FOUC Prevention */
+body {
+  opacity: 0;
+  /* Hidden by default until loaded */
+  transition: opacity 0.3s ease-in-out;
+}
+
+html.loaded body {
+  opacity: 1;
+}

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ batch_name if batch_name else 'Class Details' }} - TeacherHub</title>
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', path='styles/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='styles/teacher_dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='styles/teacher_class_details.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='styles/teacher_class_details.css') }}">
+    <style>
+        body {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        html.loaded body {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Hidden -->
+    <input type="hidden" id="batchId" value="{{ batch_id}}">
+    <input type="hidden" id="pageMode" value="{{ mode }}">
+    <!-- Background -->
+    <div class="main" style="position: fixed; z-index: -1;"></div>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-chalkboard-user"></i>
+                <span>TeacherHub</span>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="/teacher/dashboard"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+                <li><a href="/teacher/students"><i class="fa-solid fa-users"></i> Students</a></li>
+                <li><a href="/teacher/classes" class="active"><i class="fa-solid fa-book-open"></i> Classes</a></li>
+                <li><a href="#"><i class="fa-solid fa-file-pen"></i> Homework</a></li>
+                <li><a href="#"><i class="fa-solid fa-chart-line"></i> Report Cards</a></li>
+                <li><a href="#"><i class="fa-solid fa-calendar-alt"></i> Timetable</a></li>
+            </ul>
+
+            <a href="/" class="logout-btn">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+        </nav>
+
+        <!-- Main Content -->
+        <section class="main-content">
+            <header>
+                <!-- Breadcrumb style back button -->
+                <div class="header-left">
+                    <button id="sidebar-toggle" class="menu-toggle"
+                        style="margin-right: 15px; background:none; border:none; color:white; font-size:1.5rem; cursor:pointer;">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <a href="/teacher/classes" class="back-link">
+                        <i class="fa-solid fa-arrow-left"></i> Back to Classes
+                    </a>
+                </div>
+
+                <div class="user-profile">
+                    <div class="profile-section">
+                        <div class="user-info">
+                            <span>Mrs. Anderson</span>
+                            <small>Math Teacher</small>
+                        </div>
+                        <div class="user-avatar">
+                            MA
+                        </div>
+                    </div>
+            </header>
+
+            <div class="content-wrapper">
+                <!-- Class Header -->
+                <div class="class-hero">
+                    <div class="hero-content">
+                        <span class="class-badge">{{ batch_name if batch_name else 'Class Details' }}</span>
+                        <h1>{{ 'General Subject' }}</h1>
+                        <p><i class="fa-solid fa-clock"></i> 09:00 AM - 10:30 AM &nbsp;|&nbsp; <i
+                                class="fa-solid fa-user-group"></i> {{ students|length }} Students</p>
+                    </div>
+                    <div class="hero-actions">
+                        <!-- Date Picker for Attendance -->
+                        <div class="date-picker-wrapper">
+                            <label>Date:</label>
+                            <input type="date" id="attendanceDate" class="glass-input">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="tabs-container">
+                    <button class="tab-btn active" data-tab="attendance">
+                        <i class="fa-solid fa-clipboard-check"></i> Morning Attendance
+                    </button>
+                    <button class="tab-btn" data-tab="students">
+                        <i class="fa-solid fa-users"></i> Student List
+                    </button>
+                </div>
+
+                <!-- Attendance Section -->
+                <div id="attendance" class="tab-content active">
+                    <div class="attendance-toolbar">
+                        <h3>Mark Attendance</h3>
+                        <div class="toolbar-actions">
+                            <button id="markAllPresentBtn" class="action-btn-secondary">Mark All Present</button>
+                            <div class="summary-stats">
+                                <span class="stat-badge present">
+                                    <i class="fa-solid fa-check"></i> <span id="presentCount">0</span>
+                                </span>
+                                <span class="stat-badge absent">
+                                    <i class="fa-solid fa-xmark"></i> <span id="absentCount">0</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="attendance-grid" id="attendanceGrid">
+                        <!-- Student Cards injected by JS -->
+                    </div>
+
+                    <!-- Floating Save Button -->
+                    <button class="fab-save" id="saveAttendanceBtn">
+                        <i class="fa-solid fa-floppy-disk"></i> &nbsp;Save Attendance
+                    </button>
+                </div>
+
+                <!-- Student List Section (Placeholder) -->
+                <div id="students" class="tab-content">
+                    <div class="glass-panel">
+                        <p style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                            Student list details would go here.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <!-- Data injected from Backend -->
+    <script id="students-data" type="application/json">
+        {{ students | tojson | safe }}
+    </script>
+
+    <script>
+        // Data injected from Backend
+        const existingStudents = JSON.parse(document.getElementById('students-data').textContent);
+
+        // Transform backend data to match JS expectations
+        window.studentsData = existingStudents.map(student => ({
+            student_id: student.student_id,
+            rollNo: student.roll_no,
+            name: student.name,
+            initials: student.initials,
+            status: 'absent', // Default status,
+            is_present: false
+        }));
+    </script>
+    <script src="{{ url_for('static', path='js/dashboard.js') }}"></script>
+    <script src="{{ url_for('static', path='js/teacher_class_details.js') }}"></script>
+</body>
+
+</html>

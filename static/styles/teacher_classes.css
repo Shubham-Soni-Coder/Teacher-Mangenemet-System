@@ -1,0 +1,646 @@
+/* Teacher Classes View Styles - Premium Modern Theme */
+
+:root {
+    --card-bg-dark: rgba(20, 20, 35, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-highlight: rgba(255, 255, 255, 0.05);
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --accent-purple: #8c7ae6;
+    --accent-blue: #483d8b;
+    --accent-gradient: linear-gradient(135deg, #6c5ce7, #a29bfe);
+    --card-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+/* ===== Today's Overview Bar ===== */
+.today-overview-bar {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: linear-gradient(135deg, rgba(108, 92, 231, 0.12), rgba(162, 155, 254, 0.08));
+    border: 1px solid rgba(108, 92, 231, 0.25);
+    border-radius: 20px;
+    padding: 1.2rem 2rem;
+    margin-bottom: 2rem;
+    min-height: 80px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.today-overview-bar:hover {
+    border-color: rgba(108, 92, 231, 0.4);
+    box-shadow: 0 8px 30px rgba(108, 92, 231, 0.15);
+}
+
+.overview-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+}
+
+.overview-divider {
+    width: 1px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 0 1.5rem;
+    flex-shrink: 0;
+}
+
+.overview-icon-wrap {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.overview-icon-wrap.purple-wrap {
+    background: rgba(108, 92, 231, 0.2);
+    color: #a29bfe;
+    border: 1px solid rgba(108, 92, 231, 0.3);
+}
+
+.overview-icon-wrap.teal-wrap {
+    background: rgba(0, 184, 148, 0.15);
+    color: #55efc4;
+    border: 1px solid rgba(0, 184, 148, 0.25);
+}
+
+.overview-icon-wrap.orange-wrap {
+    background: rgba(230, 126, 34, 0.15);
+    color: #fab05d;
+    border: 1px solid rgba(230, 126, 34, 0.25);
+}
+
+.overview-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.overview-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.overview-value {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.2;
+}
+
+.overview-value.next-class-val {
+    font-size: 0.95rem;
+}
+
+.overview-highlight {
+    color: #a29bfe;
+    font-weight: 700;
+}
+
+/* Skeleton loader for overview */
+.overview-skeleton {
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(90deg,
+        rgba(255,255,255,0.04) 25%,
+        rgba(255,255,255,0.09) 50%,
+        rgba(255,255,255,0.04) 75%);
+    background-size: 200% 100%;
+    border-radius: 8px;
+    animation: skeleton-shimmer 1.5s infinite;
+}
+
+@keyframes skeleton-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+@media (max-width: 768px) {
+    .today-overview-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1.2rem 1.5rem;
+    }
+
+    .overview-divider {
+        width: 100%;
+        height: 1px;
+        margin: 0;
+    }
+}
+
+/* Page Header Enhancements */
+.section-header h2 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    background: linear-gradient(to right, #fff, rgba(255, 255, 255, 0.5));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -1px;
+}
+
+/* Day Filter Tabs - Fluid Navbar Style */
+.day-filter {
+    display: flex;
+    justify-content: center;
+    /* Center tabs inside */
+    gap: 0.5rem;
+    margin: 0 auto 2.5rem auto;
+    /* Center the bar itself */
+    overflow-x: auto;
+    padding: 0.6rem;
+    background: transparent;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    scrollbar-width: none;
+    max-width: fit-content;
+}
+
+.day-tab {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    padding: 0.8rem 1.5rem;
+    border-radius: 14px;
+    cursor: pointer;
+    white-space: nowrap;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.day-tab:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.day-tab.active {
+    background: var(--accent-gradient);
+    color: white;
+    box-shadow: 0 8px 20px rgba(108, 92, 231, 0.3);
+}
+
+/* Views Toggle Enhancements */
+.view-options {
+    background: transparent;
+    /* Removed background */
+    padding: 0.4rem;
+    border-radius: 15px;
+    border: 1px solid var(--glass-border);
+}
+
+.view-btn {
+    padding: 0.7rem 1rem;
+    border-radius: 12px;
+}
+
+/* Classes Grid & Animations */
+/* Classes Grid */
+.classes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    min-height: 400px;
+    /* Prevent footer jump while loading */
+}
+
+/* Stunning Class Card Design */
+/* Clean Modern Class Card */
+.class-card {
+    background: transparent;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.class-card:hover {
+    border-color: var(--accent-purple);
+    transform: translateY(-4px);
+}
+
+/* Card Visual Header */
+.class-header-color {
+    height: 70px;
+    width: 100%;
+    position: relative;
+    padding: 0.8rem 1rem;
+    overflow: hidden;
+}
+
+/* Animated Shine Effect on Header */
+/* Shine Removed */
+
+.class-badge {
+    position: absolute;
+    top: 0.8rem;
+    right: 1rem;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 0.4rem 0.9rem;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Glassy Body Content */
+.class-body-glass {
+    padding: 1.2rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.2));
+}
+
+.class-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: white;
+    margin: 0 0 0.6rem 0;
+    line-height: 1.2;
+}
+
+.class-meta-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.class-meta-row span {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.class-meta-row i {
+    color: var(--accent-purple);
+    font-size: 1.1rem;
+}
+
+/* Premium Buttons */
+.class-actions-row {
+    display: flex;
+    gap: 0.7rem;
+    margin-top: auto;
+    padding-top: 0.3rem;
+}
+
+.action-btn {
+    flex: 1;
+    padding: 0.7rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.btn-primary {
+    background: var(--accent-gradient);
+    color: white;
+    box-shadow: 0 6px 15px rgba(108, 92, 231, 0.3);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 10px 25px rgba(108, 92, 231, 0.5);
+    transform: scale(1.05);
+}
+
+.btn-outline {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn-outline:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Premium Table View */
+.table-container {
+    background: transparent;
+    border-radius: 20px;
+    padding: 2.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    margin-top: 1rem;
+    min-height: 500px;
+    /* Reserve space for table view to prevent CLS */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.glass-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.glass-table th {
+    padding: 1.2rem 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+    color: var(--text-secondary);
+    text-align: left;
+    border-bottom: 2px solid var(--glass-border);
+}
+
+.glass-table td {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+.glass-table tr:hover td {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.table-action-btn {
+    background: var(--accent-gradient) !important;
+    border: none !important;
+    padding: 0.7rem 1.5rem !important;
+    border-radius: 14px !important;
+    color: white !important;
+    font-weight: 600 !important;
+    font-size: 0.9rem !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    width: auto !important;
+    /* Override dashboard width */
+    height: auto !important;
+    /* Override dashboard height */
+    display: inline-block !important;
+    text-align: center !important;
+    float: none !important;
+    /* Remove dashboard float */
+    white-space: nowrap !important;
+}
+
+.table-action-btn:hover {
+    transform: translateY(-2px) scale(1.05) !important;
+    box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4) !important;
+}
+
+/* Homework Section - Table Design */
+.homework-container {
+    margin-top: 3rem;
+}
+
+.homework-box {
+    background: transparent;
+    /* Removed background */
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.homework-box-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 1.8rem 0;
+}
+
+/* Table Header */
+.homework-table-header {
+    display: grid;
+    grid-template-columns: 2.5fr 1.3fr 1.2fr 1.3fr 1fr;
+    gap: 1rem;
+    padding: 0.8rem 1.2rem;
+    margin-bottom: 0.3rem;
+}
+
+.hw-col {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.45);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+}
+
+/* Homework Rows */
+.homework-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.homework-row {
+    display: grid;
+    grid-template-columns: 2.5fr 1.3fr 1.2fr 1.3fr 1fr;
+    gap: 1rem;
+    align-items: center;
+    padding: 1.2rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.homework-row:first-child {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.homework-row:last-child {
+    border-bottom: none;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.homework-row:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Title Column */
+.hw-col-title .hw-title-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.hw-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.hw-icon.purple-icon {
+    background: rgba(108, 92, 231, 0.2);
+    color: #a29bfe;
+    border: 1px solid rgba(108, 92, 231, 0.3);
+}
+
+.hw-icon.teal-icon {
+    background: rgba(0, 184, 148, 0.2);
+    color: #55efc4;
+    border: 1px solid rgba(0, 184, 148, 0.3);
+}
+
+.hw-title-info h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 0.3rem 0;
+    line-height: 1.2;
+}
+
+.hw-title-info p {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Actions Column */
+.hw-action-button {
+    flex: 1;
+    padding: 0.7rem;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.hw-action-button.primary-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.hw-action-button.primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.hw-action-button.check-btn {
+    background: rgba(0, 184, 148, 0.15);
+    color: #00d9a5;
+    border: 1px solid rgba(0, 184, 148, 0.3);
+    width: 42px;
+    height: 42px;
+    padding: 0;
+}
+
+.hw-action-button.check-btn:hover {
+    background: rgba(0, 184, 148, 0.25);
+    transform: scale(1.1);
+}
+
+/* Footer */
+.homework-footer {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    text-align: center;
+}
+
+.view-all-hw-btn {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 0.85rem 2.5rem;
+    border-radius: 14px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.view-all-hw-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.view-all-hw-btn i {
+    transition: transform 0.3s ease;
+}
+
+.view-all-hw-btn:hover i {
+    transform: translateX(5px);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Wrapper for Recent Homework Table Scrolling */
+.homework-table-wrapper {
+    overflow-x: auto;
+    width: 100%;
+    /* Ensure scrollbar looks good on custom scrollbar systems */
+    padding-bottom: 0.5rem;
+}
+
+.homework-table-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+
+.homework-table-wrapper::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+.homework-table-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+}
+
+.homework-table-wrapper::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* Ensure content has minimum width to trigger scroll on small screens */
+.homework-table-header,
+.homework-row {
+    min-width: 900px;
+}

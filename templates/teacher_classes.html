@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Classes - TeacherHub</title>
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', path='styles/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='styles/teacher_dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='styles/teacher_classes.css') }}">
+    <style>
+        body {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        html.loaded body {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Background -->
+    <div class="main" style="position: fixed; z-index: -1;"></div>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-chalkboard-user"></i>
+                <span>TeacherHub</span>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="/teacher/dashboard"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+                <li><a href="/teacher/students"><i class="fa-solid fa-users"></i> Students</a></li>
+                <li><a href="#" class="active"><i class="fa-solid fa-book-open"></i> Classes</a></li>
+                <li><a href="#"><i class="fa-solid fa-file-pen"></i> Homework</a></li>
+                <li><a href="#"><i class="fa-solid fa-chart-line"></i> Report Cards</a></li>
+                <li><a href="#"><i class="fa-solid fa-calendar-alt"></i> Timetable</a></li>
+            </ul>
+
+            <a href="/logout" class="logout-btn">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+        </nav>
+
+        <!-- Main Content -->
+        <section class="main-content">
+            <header>
+                <div class="header-left" style="display: flex; align-items: center; gap: 20px;">
+                    <button id="sidebar-toggle" class="menu-toggle">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div class="search-bar">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Search classes...">
+                    </div>
+                </div>
+
+                <div class="user-profile">
+                    <button class="notification-btn">
+                        <i class="fa-solid fa-bell"></i>
+                        <span class="notification-badge"></span>
+                    </button>
+
+                    <div class="profile-section">
+                        <div class="user-info">
+                            <span>{{ teacher.full_name }}</span>
+                            <small>{{ teacher.department }}</small>
+                        </div>
+                        <div class="user-avatar">
+                            {{ teacher.initials }}
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <div class="section-header">
+                    <h2>My Classes</h2>
+                    <div class="view-options">
+                        <button class="view-btn active" id="cardViewBtn" title="Card View">
+                            <i class="fa-solid fa-grip"></i>
+                        </button>
+                        <button class="view-btn" id="tableViewBtn" title="Table View">
+                            <i class="fa-solid fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Today's Overview Bar -->
+                <div class="today-overview-bar" id="todayOverview">
+                    <!-- Dynamically filled by JS -->
+                    <div class="overview-skeleton"></div>
+                </div>
+
+                <!-- Day Filter Tabs -->
+                <div class="day-filter" id="dayFilter">
+                    <button class="day-tab active" data-day="today">Today</button>
+                    <button class="day-tab" data-day="1">Mon</button>
+                    <button class="day-tab" data-day="2">Tue</button>
+                    <button class="day-tab" data-day="3">Wed</button>
+                    <button class="day-tab" data-day="4">Thu</button>
+                    <button class="day-tab" data-day="5">Fri</button>
+                    <button class="day-tab" data-day="6">Sat</button>
+                    <button class="day-tab" data-day="all">All Days</button>
+                </div>
+
+                <!-- Classes Grid Container -->
+                <div id="classesContainer" class="classes-grid">
+                    <!-- Content injected by JS -->
+                </div>
+
+                <!-- Classes Table Container (Hidden by default) -->
+                <div id="classesTableContainer" class="table-container hidden">
+                    <table class="glass-table">
+                        <thead>
+                            <tr>
+                                <th>Class Name</th>
+                                <th>Subject</th>
+                                <th>Students</th>
+                                <th>Schedule</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="classesTableBody">
+                            <!-- Content injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Recent Homework Section -->
+                <div class="homework-container" id="homeworkContainer">
+                    <div class="homework-box">
+                        <h2 class="homework-box-title">Recent Homework</h2>
+
+                        <!-- Wrapper for horizontal scrolling -->
+                        <div class="homework-table-wrapper">
+                            <!-- Table Header -->
+                            <div class="homework-table-header">
+                                <div class="hw-col hw-col-title">TITLE & SUBJECT</div>
+                                <div class="hw-col hw-col-date">DUE DATE</div>
+                                <div class="hw-col hw-col-status">STATUS</div>
+                                <div class="hw-col hw-col-submissions">SUBMISSIONS</div>
+                                <div class="hw-col hw-col-actions">ACTIONS</div>
+                            </div>
+
+                            <!-- Homework Rows -->
+                            <div class="homework-rows">
+                                <!-- Row 1 -->
+                                <div class="homework-row">
+                                    <div class="hw-col hw-col-title">
+                                        <div class="hw-title-content">
+                                            <div class="hw-icon purple-icon">
+                                                <i class="fa-solid fa-square-root-variable"></i>
+                                            </div>
+                                            <div class="hw-title-info">
+                                                <h4>Algebra Practice</h4>
+                                                <p>Mathematics • Grade 9A</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="hw-col hw-col-date">
+                                        <div class="hw-date-info">
+                                            <span class="hw-date-day">Today</span>
+                                            <span class="hw-date-full">Apr 24, 2026</span>
+                                        </div>
+                                    </div>
+                                    <div class="hw-col hw-col-status">
+                                        <span class="hw-status-badge pending">PENDING REVIEW</span>
+                                    </div>
+                                    <div class="hw-col hw-col-submissions">
+                                        <div class="hw-submission-info">
+                                            <span class="hw-submission-count">6 / 30</span>
+                                            <span class="hw-submission-percent">20% Collected</span>
+                                        </div>
+                                    </div>
+                                    <div class="hw-col hw-col-actions">
+                                        <button class="hw-action-button primary-btn">Review</button>
+                                    </div>
+                                </div>
+
+                                <!-- Row 2 -->
+                                <div class="homework-row">
+                                    <div class="hw-col hw-col-title">
+                                        <div class="hw-title-content">
+                                            <div class="hw-icon teal-icon">
+                                                <i class="fa-solid fa-shapes"></i>
+                                            </div>
+                                            <div class="hw-title-info">
+                                                <h4>Geometry Basics</h4>
+                                                <p>Mathematics • Grade 9B</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="hw-col hw-col-date">
+                                        <div class="hw-date-info">
+                                            <span class="hw-date-day">Tue</span>
+                                            <span class="hw-date-full">Apr 22, 2026</span>
+                                        </div>
+                                    </div>
+                                    <div class="hw-col hw-col-status">
+                                        <span class="hw-status-badge completed">COMPLETED</span>
+                                    </div>
+                                    <div class="hw-col hw-col-submissions">
+                                        <div class="hw-submission-info">
+                                            <span class="hw-submission-count">30 / 30</span>
+                                            <span class="hw-submission-percent">100% Collected</span>
+                                        </div>
+                                    </div>
+                                    <div class="hw-col hw-col-actions">
+                                        <button class="hw-action-button check-btn">
+                                            <i class="fa-solid fa-check"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Footer Button -->
+                        <div class="homework-footer">
+                            <button class="view-all-hw-btn">
+                                View All Homework
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+    </div>
+
+    <script src="{{ url_for('static', path='js/dashboard.js') }}"></script>
+    <script src="{{ url_for('static', path='js/teacher_classes.js') }}?v=2"></script>
+</body>
+
+</html>
