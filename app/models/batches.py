@@ -6,4 +6,4 @@ class Batches(Base):
     __tablename__ = "batches"
     id = Column(Integer, primary_key=True, index=True)
     batch_name = Column(String(50), nullable=False)
-    stream = Column(String(10), nullable=True)
+    stream = Column(String(20), nullable=True)
