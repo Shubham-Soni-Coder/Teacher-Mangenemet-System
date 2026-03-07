@@ -77,3 +77,8 @@ def startup():
 @app.get("/favicon.ico", include_in_schema=False)
 def favicon():
     return RedirectResponse(url="/static/images/favicon.ico")
+
+
+@app.api_route("/", methods=["GET", "HEAD"])
+def root():
+    return {"message": "API running"}
