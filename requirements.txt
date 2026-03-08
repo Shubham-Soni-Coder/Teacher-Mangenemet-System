@@ -13,3 +13,4 @@ argon2-cffi
 tzdata
 psycopg2-binary
 sqlalchemy
+alembic
