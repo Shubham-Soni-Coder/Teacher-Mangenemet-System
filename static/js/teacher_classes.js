@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const dayTabs = document.querySelectorAll(".day-tab");
   let currentDayFilter = "today";
 
-  // Fetch Data from Backend
+  // Fetch Classes and fill Batch Select for Modal
   async function fetchClasses(search = "") {
     try {
       const response = await fetch(
@@ -41,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       renderAll();
       renderTodayOverview();
+      fillBatchSelect(data);
     } catch (error) {
       console.error("Error loading classes:", error);
       if (classesContainer) {
@@ -49,7 +50,87 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Search Functionality with Debounce
+  // Populate the batch dropdown in the Create Homework Modal
+  function fillBatchSelect(data) {
+    const modalBatchSelect = document.getElementById("modalBatchSelect");
+    if (!modalBatchSelect) return;
+
+    // Get unique classes/batches
+    const uniqueBatches = [];
+    const seenIds = new Set();
+
+    data.forEach(cls => {
+      if (!seenIds.has(cls.id)) {
+        seenIds.add(cls.id);
+        uniqueBatches.push({ id: cls.id, name: cls.name });
+      }
+    });
+
+    const defaultOption = '<option value="" disabled selected>Select a class</option>';
+    modalBatchSelect.innerHTML = defaultOption + uniqueBatches.map(b => `
+      <option value="${b.id}">${b.name}</option>
+    `).join("");
+  }
+
+  // Modal Control Logic
+  const homeworkModal = document.getElementById("homeworkModal");
+  const openModalBtn = document.getElementById("openHomeworkModal");
+  const closeModalBtns = [
+    document.getElementById("closeModal"),
+    document.getElementById("cancelModal")
+  ];
+
+  if (openModalBtn && homeworkModal) {
+    openModalBtn.addEventListener("click", () => {
+      homeworkModal.classList.remove("hidden");
+      document.body.style.overflow = "hidden"; // Prevent background scroll
+    });
+  }
+
+  closeModalBtns.forEach(btn => {
+    if (btn) {
+      btn.addEventListener("click", () => {
+        homeworkModal.classList.add("hidden");
+        document.body.style.overflow = "";
+      });
+    }
+  });
+
+  // Close modal when clicking outside content
+  if (homeworkModal) {
+    homeworkModal.addEventListener("click", (e) => {
+      if (e.target === homeworkModal) {
+        homeworkModal.classList.add("hidden");
+        document.body.style.overflow = "";
+      }
+    });
+  }
+
+  // Form Submission Logic
+  const homeworkForm = document.getElementById("homeworkForm");
+  if (homeworkForm) {
+    homeworkForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(homeworkForm);
+      const data = {
+        title: formData.get("title"),
+        batch_id: formData.get("batch_id"),
+        due_date: formData.get("due_date"),
+        description: formData.get("description")
+      };
+
+      console.log("New Homework Data Captured (Frontend Only):", data);
+
+      alert("Success! Homework creation data captured. Ready to send to backend.");
+      homeworkModal.classList.add("hidden");
+      document.body.style.overflow = "";
+      homeworkForm.reset();
+    });
+  }
+
+  // Initial Fetch
+  fetchClasses();
   let searchTimeout;
   const searchInput = document.querySelector(".search-bar input");
 
