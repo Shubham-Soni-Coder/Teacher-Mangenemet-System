@@ -9,6 +9,8 @@ from app.models import (
     Subject,
     AttendanceRecord,
     AttendanceSession,
+    Homework,
+    HomeworkSubmission,
 )
 from app.utils.helpers import initials
 from app.utils.data_utils import get_total_days_in_month
@@ -332,3 +334,52 @@ def global_search(db: Session, teacher_id: int, search: str):
             for s in students_query
         ],
     }
+
+
+def get_recent_homework(db: Session, teacher_id: int, limit: int = 5):
+    """Fetch recent homework assignments and their submission stats"""
+    homeworks = (
+        db.query(Homework)
+        .filter(Homework.teacher_id == teacher_id)
+        .order_by(Homework.created_at.desc())
+        .limit(limit)
+        .all()
+    )
+
+    results = []
+    for hw in homeworks:
+        # Count submissions
+        total_students = (
+            db.query(func.count(Student.id))
+            .filter(Student.batch_id == hw.batch_id)
+            .scalar()
+        )
+        submissions_count = (
+            db.query(func.count(HomeworkSubmission.id))
+            .filter(HomeworkSubmission.homework_id == hw.id)
+            .scalar()
+        )
+
+        results.append(
+            {
+                "id": hw.id,
+                "title": hw.title,
+                "subject": hw.subject.name if hw.subject else "N/A",
+                "batch": hw.batch.batch_name if hw.batch else "N/A",
+                "due_date": hw.due_date.strftime("%b %d, %Y"),
+                "due_day": (
+                    "Today"
+                    if hw.due_date == datetime.now().date()
+                    else hw.due_date.strftime("%a")
+                ),
+                "status": hw.status.upper(),
+                "submissions_count": submissions_count,
+                "total_students": total_students,
+                "percent": (
+                    round((submissions_count / total_students) * 100)
+                    if total_students > 0
+                    else 0
+                ),
+            }
+        )
+    return results

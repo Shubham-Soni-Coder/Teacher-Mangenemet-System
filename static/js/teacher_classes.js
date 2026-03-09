@@ -261,9 +261,81 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Fetch Homework Data
+  async function fetchHomework() {
+    const homeworkRows = document.getElementById("homeworkRows");
+    if (!homeworkRows) return;
+
+    try {
+      const response = await fetch("/teacher/api/homework-list");
+      if (!response.ok) throw new Error("Failed to fetch homework");
+      const data = await response.json();
+      renderHomework(data);
+    } catch (error) {
+      console.error("Error loading homework:", error);
+      homeworkRows.innerHTML = `<p class="error-msg">Failed to load homework.</p>`;
+    }
+  }
+
+  function renderHomework(data) {
+    const homeworkRows = document.getElementById("homeworkRows");
+    if (!homeworkRows) return;
+
+    if (data.length === 0) {
+      homeworkRows.innerHTML = `
+        <div class="homework-row" style="justify-content: center; padding: 2rem; color: var(--text-secondary);">
+          No recent homework found.
+        </div>
+      `;
+      return;
+    }
+
+    homeworkRows.innerHTML = data.map(hw => `
+      <div class="homework-row">
+        <div class="hw-col hw-col-title">
+          <div class="hw-title-content">
+            <div class="hw-icon ${hw.percent === 100 ? 'teal-icon' : 'purple-icon'}">
+              <i class="fa-solid fa-file-lines"></i>
+            </div>
+            <div class="hw-title-info">
+              <h4>${hw.title}</h4>
+              <p>${hw.subject} • ${hw.batch}</p>
+            </div>
+          </div>
+        </div>
+        <div class="hw-col hw-col-date">
+          <div class="hw-date-info">
+            <span class="hw-date-day">${hw.due_day}</span>
+            <span class="hw-date-full">${hw.due_date}</span>
+          </div>
+        </div>
+        <div class="hw-col hw-col-status">
+          <span class="hw-status-badge ${hw.percent === 100 ? 'completed' : 'pending'}">${hw.status}</span>
+        </div>
+        <div class="hw-col hw-col-submissions">
+          <div class="hw-submission-info">
+            <span class="hw-submission-count">${hw.submissions_count} / ${hw.total_students}</span>
+            <span class="hw-submission-percent">${hw.percent}% Collected</span>
+          </div>
+        </div>
+        <div class="hw-col hw-col-actions">
+          <button class="hw-action-button ${hw.percent === 100 ? 'check-btn' : 'primary-btn'}" onclick="viewHomework(${hw.id})">
+            ${hw.percent === 100 ? '<i class="fa-solid fa-check"></i>' : 'Review'}
+          </button>
+        </div>
+      </div>
+    `).join("");
+  }
+
   // Initial Fetch
   fetchClasses();
+  fetchHomework();
 });
+
+window.viewHomework = function (id) {
+  console.log("Viewing homework:", id);
+  // Future: window.location.href = `/teacher/homework/${id}`;
+};
 
 // Global navigation functions
 window.openClass = function (batchId) {

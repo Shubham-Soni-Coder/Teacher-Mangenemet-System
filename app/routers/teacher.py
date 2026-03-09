@@ -220,3 +220,14 @@ def get_global_search(
     if not teacher:
         return {"students": [], "classes": []}
     return teacher_service.global_search(db, teacher.id, search=search)
+
+
+@router.get("/api/homework-list", name="get_homework_list")
+def get_homework_list(
+    db: Session = Depends(get_db),
+    user_id: int = Depends(get_current_teacher),
+):
+    teacher = db.query(Teacher).filter(Teacher.user_id == user_id).first()
+    if not teacher:
+        return []
+    return teacher_service.get_recent_homework(db, teacher.id)
