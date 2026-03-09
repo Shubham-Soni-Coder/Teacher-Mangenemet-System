@@ -9,6 +9,10 @@ DATABASE_URL = Settings.DATABASE_URL
 if not DATABASE_URL:
     raise ValueError("DATABASE_URL is not set")
 
+# Render provides postgres:// urls, but SQLAlchemy requires postgresql://
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
 # SQLite needs check_same_thread=False; PostgreSQL does not support it
 is_sqlite = DATABASE_URL.startswith("sqlite")
 
