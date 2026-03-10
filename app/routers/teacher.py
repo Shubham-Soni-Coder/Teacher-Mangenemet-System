@@ -13,6 +13,7 @@ from app.utils.helpers import initials
 from app.utils.timezone import now_ist
 from app.core.config import Settings
 from app.core.dependencies import get_current_teacher
+from app.schemas import HomeworkCreate, HomeworkResponse
 
 # Initialize templates
 templates = Jinja2Templates(directory="templates")
@@ -231,3 +232,24 @@ def get_homework_list(
     if not teacher:
         return []
     return teacher_service.get_recent_homework(db, teacher.id)
+
+
+@router.post("/api/homework/create", name="create_homework")
+def create_homework(
+    payload: HomeworkCreate,
+    db: Session = Depends(get_db),
+    user_id: int = Depends(get_current_teacher),
+):
+    teacher = db.query(Teacher).filter(Teacher.user_id == user_id).first()
+    if not teacher:
+        raise HTTPException(status_code=404, detail="Teacher profile not found")
+
+    new_hw = teacher_service.create_teacher_homework(db, teacher.id, payload)
+
+    if not new_hw:
+        raise HTTPException(
+            status_code=400,
+            detail="Could not create homework. Ensure you teach this batch.",
+        )
+
+    return {"message": "Homework created successfully", "homework_id": new_hw.id}

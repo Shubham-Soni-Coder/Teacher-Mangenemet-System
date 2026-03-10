@@ -33,3 +33,8 @@ from .classes import (
     ClassUpdate,
     ClassOut,
 )
+
+from .homework import (
+    HomeworkCreate,
+    HomeworkResponse,
+)

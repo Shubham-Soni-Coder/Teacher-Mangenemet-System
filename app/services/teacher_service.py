@@ -15,6 +15,7 @@ from app.models import (
 from app.utils.helpers import initials
 from app.utils.data_utils import get_total_days_in_month
 from app.services.attendance_service import count_student_present_day
+from app.schemas import HomeworkCreate
 from datetime import time, datetime
 
 
@@ -383,3 +384,37 @@ def get_recent_homework(db: Session, teacher_id: int, limit: int = 5):
             }
         )
     return results
+
+
+def create_teacher_homework(db: Session, teacher_id: int, payload: HomeworkCreate):
+    """Business logic to create homework based on batch_id and teacher_id"""
+    # 1. Identify which subject the teacher is teaching to this batch
+    schedule = (
+        db.query(ClassSchedule)
+        .filter(
+            ClassSchedule.teacher_id == teacher_id,
+            ClassSchedule.batch_id == payload.batch_id,
+        )
+        .first()
+    )
+
+    if not schedule:
+        # Teacher does not teach this batch
+        return None
+
+    # 2. Create entry in Database
+    new_hw = Homework(
+        title=payload.title,
+        batch_id=payload.batch_id,
+        teacher_id=teacher_id,
+        subject_id=schedule.subject_id,
+        due_date=payload.due_date,
+        description=payload.description,
+        status="published",  # Default status
+    )
+
+    db.add(new_hw)
+    db.commit()
+    db.refresh(new_hw)
+
+    return new_hw

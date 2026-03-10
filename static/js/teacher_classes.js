@@ -108,24 +108,57 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Form Submission Logic
   const homeworkForm = document.getElementById("homeworkForm");
+  const submitBtn = homeworkForm ? homeworkForm.querySelector(".btn-submit-homework") : null;
+
   if (homeworkForm) {
-    homeworkForm.addEventListener("submit", (e) => {
+    homeworkForm.addEventListener("submit", async (e) => {
       e.preventDefault();
 
       const formData = new FormData(homeworkForm);
       const data = {
         title: formData.get("title"),
-        batch_id: formData.get("batch_id"),
+        batch_id: parseInt(formData.get("batch_id")),
         due_date: formData.get("due_date"),
         description: formData.get("description")
       };
 
-      console.log("New Homework Data Captured (Frontend Only):", data);
+      try {
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Creating...';
+        }
 
-      alert("Success! Homework creation data captured. Ready to send to backend.");
-      homeworkModal.classList.add("hidden");
-      document.body.style.overflow = "";
-      homeworkForm.reset();
+        const response = await fetch("/teacher/api/homework/create", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+          const errData = await response.json();
+          throw new Error(errData.detail || "Failed to create homework");
+        }
+
+        alert("Success! Homework created successfully.");
+        homeworkModal.classList.add("hidden");
+        document.body.style.overflow = "";
+        homeworkForm.reset();
+
+        if (typeof fetchHomework === 'function') {
+          fetchHomework();
+        }
+
+      } catch (error) {
+        console.error("Error creating homework:", error);
+        alert("Error: " + error.message);
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'Submit Assignment <i class="fa-solid fa-paper-plane"></i>';
+        }
+      }
     });
   }
 
